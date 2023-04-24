@@ -37,7 +37,38 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
+.loginForm {
+  text-align: center;
+  margin: 10% auto 0 auto;
+  top: 50%;
+  width: 50%;
+
+}
+
+.loginBox {
+  width: 60%;
+  margin: 30px auto 0 auto;
+  border: solid 3px #D8D8D8;
+  border-radius: 20px;
+  box-shadow: 7px -3px 26px -9px rgba(92,83,83,0.75);
+}
+
+
+@font-face {
+  font-family: 'SBAggroB';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+h3 {
+  font-family: 'SBAggroB';
+}
+
+
