@@ -15,7 +15,6 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
 
   const findPlace = useCallback(() => {
     const ps = new kakao.maps.services.Places();
-
     const callback = (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         setSearchPlaceList(result);
@@ -27,7 +26,6 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
 
   const inputChangeHandler = useCallback((e) => {
     const { name, value } = e.target;
-
     setMeeting((meeting) => {
       return {
         ...meeting,
@@ -35,6 +33,12 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
       };
     });
   }, []);
+
+  const inputOnClickHandler = (e) => {
+    if (e.key === "Enter") {
+      findPlace();
+    }
+  };
 
   const clickPlace = useCallback((place) => {
     setSearchPlaceList([]);
@@ -48,6 +52,7 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
   }, []);
 
   const createHandler = useCallback(() => {
+    console.log("ccccccccc" + place);
     setMeets((meets) =>
       meets.concat({ place: place, date: meeting.time, link: meeting.chat })
     );
@@ -56,6 +61,7 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
 
   useEffect(() => {
     console.log(place);
+    // findPlace();
   }, [place]);
 
   return (
@@ -77,22 +83,26 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
             <input
               name="place"
               type="text"
+              className="form-control me-sm-2"
               value={meeting.place}
               onChange={inputChangeHandler}
+              onKeyDown={inputOnClickHandler}
             />
-            <Button variant="primary" onClick={findPlace}>
-              찾기
-            </Button>
+            {searchPlaceList.length > 0 && (
+              <PlaceList places={searchPlaceList} onClick={clickPlace} />
+            )}
+            {/* {searchPlaceList.length > 0 &&
+              searchPlaceList.map((place) => (
+                <PlaceList key={place.id} place={place} onClick={clickPlace} />
+              ))} */}
           </div>
-          {searchPlaceList.length > 0 &&
-            searchPlaceList.map((place) => (
-              <PlaceList key={place.id} place={place} onClick={clickPlace} />
-            ))}
+
           <div>
             <label htmlFor="time">시간</label>
             <br />
             <input
               name="time"
+              className="form-control w-50"
               type="datetime-local"
               value={meeting.time}
               onChange={inputChangeHandler}
@@ -104,6 +114,7 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
             <input
               name="chat"
               type="text"
+              className="form-control"
               value={meeting.chat}
               onChange={inputChangeHandler}
             />
