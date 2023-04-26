@@ -51,8 +51,29 @@ function CreateModal({ meets, setMeets, openModal, setOpenModal }) {
     });
   }, []);
 
+  const validateForm = (place, time, chat) => {
+    if(Object.keys(place).length <= 0) {
+      alert("장소를 입력해주세요!");
+      return false;
+    }
+    if(time === "") {
+      alert("시간을 입력해주세요!");
+      return false;
+    }
+    if(chat === "") {
+      alert("오픈채팅 링크를 입력해주세요!");
+      return false;
+    }
+    // } else if (!chat.includes('open.kakao.com')) {
+    //   alert("오픈채팅 링크를 확인해주세요!");
+    //   return false;
+    // }
+    return true;
+  };
+
   const createHandler = useCallback(() => {
     console.log("ccccccccc" + place);
+    if(!validateForm(place, meeting.time, meeting.chat)) return;
     setMeets((meets) =>
       meets.concat({ place: place, date: meeting.time, link: meeting.chat })
     );

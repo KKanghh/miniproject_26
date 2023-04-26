@@ -5,12 +5,14 @@ import Auth from "./components/Auth";
 import MeetList from "./components/MeetList";
 import Bar from "./components/Bar";
 import CreateModal from "./components/CreateModal";
+import InfoModal from "./components/InfoModal";
 
 function App() {
   const ctx = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
+  const [openInfoModal, setOpenInfoModal] = useState(false);
   const [meets, setMeets] = useState([]);
-
+  const [meet, setMeet] = useState([]);
   if (!ctx.user) {
     return <Auth />;
   }
@@ -26,7 +28,14 @@ function App() {
           setOpenModal={setOpenModal}
         />
       )}
-      <MeetList meets={meets} />
+      {openInfoModal && (
+        <InfoModal
+          meet={meet}
+          openInfoModal={openInfoModal}
+          setOpenInfoModal={setOpenInfoModal}
+        />
+      )}
+      <MeetList meets={meets} setMeet={setMeet} setOpenInfoModal={setOpenInfoModal} />
     </>
   );
 }
