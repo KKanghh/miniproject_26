@@ -5,6 +5,7 @@ import Auth from "./components/Auth";
 import MeetList from "./components/MeetList";
 import Bar from "./components/Bar";
 import CreateModal from "./components/CreateModal";
+import Kakao from "./components/Kakao";
 
 function App() {
   const ctx = useContext(AuthContext);
