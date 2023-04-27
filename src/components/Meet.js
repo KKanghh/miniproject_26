@@ -1,31 +1,24 @@
 import React from "react";
-import styled from "styled-components";
-import { Button } from "react-bootstrap";
+import { useCallback } from "react";
+import Button from "react-bootstrap/Button";
 
-const MeetLi = styled.li`
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto 10px;
-  width: 60%;
-`;
+const Meet = ({ meet, setMeet, setOpenInfoModal }) => {
+  const onClickInfoBtn = useCallback(()=> {
+    setMeet(meet);
+    setOpenInfoModal(true);
+  }, [meet, setMeet, setOpenInfoModal]);
 
-const NameDiv = styled.div`
-  width: 20%;
-`;
-
-const Meet = ({ meet }) => {
-  console.log(meet);
   return (
-    <MeetLi>
-      <NameDiv>{meet.place.place_name}</NameDiv>
-      <span>{new Date(meet.date).toLocaleString()}</span>
-      <a href={meet.link} target="_blank">
-        <Button>참여하기</Button>
-      </a>
-    </MeetLi>
+    <li>
+      {meet.place.place_name}
+      <br />
+      {new Date(meet.date).toLocaleString()}
+      <br />
+      <Button variant="primary" onClick={onClickInfoBtn}>
+        정보 확인
+      </Button>
+    </li>
   );
 };
 
-export default React.memo(Meet);
+export default Meet;
